@@ -1,22 +1,18 @@
-import { useState } from 'react';
 import { Dice } from '../dice';
-import { Button } from '../button';
+import { useDiceState } from '@/logic/dice_state';
 
-interface MultiDiceSelectorProps {
-  values: (number | null)[];
-  onChange?: (dice: (number | null)[]) => void;
-}
-
-export function MultiDiceSelector({
-  values,
-  onChange,
-}: MultiDiceSelectorProps) {
-  const [selected, setSelected] = useState<number>(0);
+export function MultiDiceSelector() {
+  const [dice, setDice, selected, setSelected] = useDiceState((s) => [
+    s.dice,
+    s.setDice,
+    s.selectedDice,
+    s.setSelectedDice,
+  ]);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row flex-wrap items-center justify-center gap-2">
-        {values.map((v, i) => (
+        {dice.map((v, i) => (
           <Dice
             key={i}
             num={v ?? 0}
@@ -27,9 +23,15 @@ export function MultiDiceSelector({
           />
         ))}
 
-        <Button onClick={() => onChange && onChange(values.fill(null))}>
+        <button
+          className="button"
+          onClick={() => {
+            setDice(new Array(dice.length).fill(null));
+            setSelected(0);
+          }}
+        >
           Clear
-        </Button>
+        </button>
       </div>
 
       <div className="flex flex-row flex-wrap justify-center gap-2">
@@ -39,13 +41,13 @@ export function MultiDiceSelector({
             num={i + 1}
             className="h-12 w-12"
             onClick={() => {
-              const nv = [...values];
+              const nv = [...dice];
               nv[selected] = i + 1;
-              if (onChange) onChange(nv);
+              setDice(nv);
 
               let fi = nv.indexOf(null, selected);
               if (fi === -1) fi = nv.indexOf(null);
-              if (fi === -1) fi = (selected + 1) % values.length;
+              if (fi === -1) fi = (selected + 1) % dice.length;
               setSelected(fi);
             }}
           />

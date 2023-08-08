@@ -4,6 +4,10 @@
 
 .button {
   @apply rounded-lg bg-sky-500 px-4 py-2 text-center font-medium text-white hover:bg-sky-600;
+
+  & > .icon {
+    @apply mr-2;
+  }
 }
 
 .button.is-red {
@@ -12,6 +16,10 @@
 
 .button.is-pink {
   @apply bg-pink-500 hover:bg-pink-600;
+}
+
+.button.is-light {
+  @apply bg-gray-100 text-gray-800 hover:bg-gray-200;
 }
 
 .button.button-outline {

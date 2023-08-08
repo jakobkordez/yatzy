@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '../button';
 import { Dice } from '../dice';
 import { useModalState } from '../modal';
 
@@ -21,7 +20,7 @@ export function DiceSelectorModal({
   unique = true,
 }: DiceSelectorModalProps) {
   const [values, setValues] = useState<(number | null)[]>(
-    new Array(labels.length).fill(null)
+    new Array(labels.length).fill(null),
   );
 
   function setValueAt(i: number, v: number | null): void {
@@ -85,9 +84,17 @@ export function DiceSelectorModal({
       ))}
 
       <div className="flex flex-row justify-center gap-2">
-        <Button onClick={closeModal}>Cancel</Button>
-        <Button onClick={clearValue}>Clear</Button>
-        {canComplete() && <Button onClick={submit}>Confirm</Button>}
+        <button className="button" onClick={closeModal}>
+          Cancel
+        </button>
+        <button className="button" onClick={clearValue}>
+          Clear
+        </button>
+        {canComplete() && (
+          <button className="button" onClick={submit}>
+            Confirm
+          </button>
+        )}
       </div>
     </div>
   );

@@ -2,7 +2,6 @@
 
 import { useYatzyGameState } from '@/logic/game_state';
 import { useState } from 'react';
-import { Button } from './button';
 
 export default function NewGame() {
   const [addPlayerValue, setAddPlayerValue] = useState<string>('');
@@ -32,9 +31,9 @@ export default function NewGame() {
               if (e.key == 'Enter') addPlayer();
             }}
           />
-          <Button className="text-lg leading-3" onClick={addPlayer}>
+          <button className="button text-lg leading-3" onClick={addPlayer}>
             +
-          </Button>
+          </button>
         </div>
       </div>
 
@@ -65,8 +64,12 @@ export default function NewGame() {
 
       {players.length > 0 && (
         <div className="flex flex-row justify-end gap-2">
-          <Button onClick={() => setPlayers([])}>Clear</Button>
-          <Button onClick={() => createGame(players)}>Start</Button>
+          <button className="button" onClick={() => setPlayers([])}>
+            Clear
+          </button>
+          <button className="button" onClick={() => createGame(players)}>
+            Start
+          </button>
         </div>
       )}
     </div>
