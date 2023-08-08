@@ -1,4 +1,3 @@
-import { Button } from '../button';
 import { useModalState } from '../modal';
 
 interface DiceCountModalProps {
@@ -49,8 +48,12 @@ export function DiceCountModal({
       </div>
 
       <div className="flex flex-row justify-center gap-2">
-        <Button onClick={closeModal}>Cancel</Button>
-        <Button onClick={clearValue}>Clear</Button>
+        <button className="button" onClick={closeModal}>
+          Cancel
+        </button>
+        <button className="button" onClick={clearValue}>
+          Clear
+        </button>
       </div>
     </div>
   );
