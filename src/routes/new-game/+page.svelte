@@ -13,14 +13,14 @@
 	}
 </script>
 
-<div class="flex flex-col gap-5 card max-w-xl bg-white mx-auto p-6">
+<div class="card mx-auto flex max-w-xl flex-col gap-5 bg-white p-6">
 	<h1 class="text-3xl font-medium">New game</h1>
 
 	<div class="flex flex-col gap-1">
 		<div class="text-center">Add player</div>
 		<div class="flex gap-2">
 			<input
-				class="flex-1 input input-bordered w-full"
+				class="input input-bordered w-full flex-1"
 				type="text"
 				bind:value={addPlayerValue}
 				on:keydown={(e) => {
@@ -37,7 +37,7 @@
 		<div class="text-center">Players</div>
 		<div class="flex flex-col gap-2">
 			{#each players as player, i}
-				<div class="flex flex-row items-center gap-2 input pl-6 pr-3">
+				<div class="input flex flex-row items-center gap-2 pl-6 pr-3">
 					<!-- <span>#</span> -->
 					<span class="flex-1">{player}</span>
 					<button

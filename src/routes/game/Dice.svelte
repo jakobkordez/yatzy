@@ -6,7 +6,7 @@
 </script>
 
 <button
-	class="w-full h-full m-auto relative aspect-square border rounded-[15%] max-w-[60px] bg-gray-50"
+	class="relative m-auto aspect-square h-full w-full max-w-[60px] rounded-[15%] border bg-gray-50"
 	on:click={onClick}
 	{disabled}
 >
@@ -38,6 +38,6 @@
 	</svg>
 
 	{#if selected}
-		<div class="absolute inset-0 border border-primary rounded-[15%]" />
+		<div class="absolute inset-0 rounded-[15%] border border-primary" />
 	{/if}
 </button>

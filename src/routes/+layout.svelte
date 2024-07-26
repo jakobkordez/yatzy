@@ -4,12 +4,12 @@
 	import { gameState } from '$lib/game-state';
 	import '../app.css';
 
-	const gs = $gameState;
-	const path = $page.url.pathname;
+	$: gs = $gameState;
+	$: path = $page.url.pathname;
 
-	if (gs && !path.startsWith('/game/')) {
+	if (gs && !path.match(/^\/game\b/)) {
 		goto('/game');
-	} else if (!gs && !path.startsWith('/new-game/')) {
+	} else if (gs === null && !path.match(/^\/new-game\b/)) {
 		goto('/new-game');
 	}
 </script>
@@ -18,13 +18,13 @@
 	<title>Yatzy Scorecard</title>
 </svelte:head>
 
-<div class="bg-base-200 min-h-screen flex flex-col">
-	<div class="flex-1 max-w-screen-lg mx-auto p-6">
+<div class="flex min-h-screen flex-col bg-base-200">
+	<div class="flex-1 p-6">
 		<slot />
 	</div>
 
-	<footer class="bg-base-300 py-1.5 px-3">
-		<div class="max-w-screen-md mx-auto flex justify-between gap-4">
+	<footer class="bg-base-300 px-3 py-1.5">
+		<div class="mx-auto flex max-w-screen-md justify-between gap-4">
 			<div>
 				Yatzy Scorecard by <a href="https://jkob.cc" class="link">jkob.cc</a>
 			</div>

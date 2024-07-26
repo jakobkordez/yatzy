@@ -12,18 +12,18 @@
 </button>
 
 {#if quitModal}
-	<div class="fixed inset-0 z-10 p-8 flex">
+	<div class="fixed inset-0 z-10 flex p-8">
 		<button
-			class="bg-black/60 absolute inset-0 cursor-default"
+			class="absolute inset-0 cursor-default bg-black/60"
 			on:click={() => (quitModal = false)}
 		/>
-		<div class="card bg-base-100 p-8 m-auto">
-			<div class="text-2xl font-bold mb-2">Are you sure?</div>
+		<div class="card m-auto bg-base-100 p-8">
+			<div class="mb-2 text-2xl font-bold">Are you sure?</div>
 			<p>You will lose all of your progress!</p>
-			<div class="flex gap-2 mt-4">
+			<div class="mt-6 flex gap-2">
 				<button class="btn btn-sm ml-auto" on:click={() => (quitModal = false)}>Cancel</button>
 				<button
-					class="btn btn-sm btn-error"
+					class="btn btn-error btn-sm"
 					on:click={() => {
 						quitModal = false;
 						exitGame();
