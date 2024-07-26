@@ -1,15 +1,16 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { gameState } from '$lib/game-state';
-	import { get } from 'svelte/store';
 	import '../app.css';
 
-	const gs = get(gameState);
+	const gs = $gameState;
+	const path = $page.url.pathname;
 
-	console.log(window.location.pathname);
-	if (gs && window.location.pathname !== '/game') {
-		window.location.href = '/game';
-	} else if (!gs && window.location.pathname !== '/new-game') {
-		window.location.href = '/new-game';
+	if (gs && !path.startsWith('/game/')) {
+		goto('/game');
+	} else if (!gs && !path.startsWith('/new-game/')) {
+		goto('/new-game');
 	}
 </script>
 
