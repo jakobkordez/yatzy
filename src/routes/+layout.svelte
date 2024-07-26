@@ -23,12 +23,12 @@
 		<slot />
 	</div>
 
-	<footer class="bg-base-300 p-1.5">
+	<footer class="bg-base-300 py-1.5 px-3">
 		<div class="max-w-screen-md mx-auto flex justify-between gap-4">
 			<div>
 				Yatzy Scorecard by <a href="https://jkob.cc" class="link">jkob.cc</a>
 			</div>
-			<div>
+			<div class="text-right">
 				Source code available on
 				<a href="https://github.com/jakobkordez/yatzy" class="link">Github</a>
 			</div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Dice from './Dice.svelte';
+	import Dice from './dice.svelte';
 
 	export let dice = new Array(5).fill(null);
 	export let selectedDice = 0;

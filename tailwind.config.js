@@ -6,7 +6,7 @@ export default {
 	},
 	plugins: [require('daisyui')],
 	daisyui: {
-		themes: ["cupcake"],
-		logs: false,
+		themes: ['cupcake'],
+		logs: false
 	}
 };

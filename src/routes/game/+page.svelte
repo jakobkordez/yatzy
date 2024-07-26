@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { exitGame, gameState, setFieldAndSave } from '$lib/game-state';
-	import MultiDiceSelector from './MultiDiceSelector.svelte';
+	import { gameState, setFieldAndSave } from '$lib/game-state';
+	import MultiDiceSelector from './multi-dice-selector.svelte';
 	import { YatzyBasicField } from '$lib/yatzy-field';
 	import Fa from 'svelte-fa';
-	import { faEraser, faPen, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+	import { faEraser, faPen } from '@fortawesome/free-solid-svg-icons';
+	import QuitButton from './quit-button.svelte';
 
 	let player: number | undefined = 0;
 	let dice: (number | null)[] = new Array(5).fill(null);
@@ -25,7 +26,9 @@
 </script>
 
 <div class="flex flex-col gap-10 md:flex-row md:items-start">
-	<div class="flex flex-col gap-10 flex-1 max-w-md">
+	<div class="flex flex-col gap-6 flex-1 max-w-md">
+		<QuitButton />
+
 		<div class="mx-auto flex w-full flex-1 flex-col gap-6 card bg-white p-6 md:flex-col">
 			<div class="flex flex-row gap-1">
 				<button
@@ -67,11 +70,6 @@
 				</div>
 			</div>
 		</div>
-
-		<button on:click={exitGame} class="btn btn-error btn-sm">
-			<Fa icon={faRightFromBracket} />
-			<span>Quit game</span>
-		</button>
 	</div>
 
 	<table class="w-auto table select-none overflow-clip card bg-white text-center md:mx-auto">
@@ -92,8 +90,8 @@
 						{gs.fieldNames[fieldI]}
 					</th>
 
-					{#each gs.scores as _, playerI}
-						{@const fieldVal = gs.scores[playerI][fieldI]}
+					{#each gs.scores as playerScore, playerI}
+						{@const fieldVal = playerScore[fieldI]}
 						<td class="border-l border-base-200 p-0">
 							{#if !(field instanceof YatzyBasicField) || playerI !== player || erase !== (fieldVal !== null)}
 								<div class="h-full w-full py-2">

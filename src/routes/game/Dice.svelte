@@ -10,27 +10,32 @@
 	on:click={onClick}
 	{disabled}
 >
-	{#if value % 2 === 1}
-		<div
-			class="absolute left-1/2 top-1/2 h-1/6 w-1/6 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gray-500"
-		/>
-	{/if}
-	{#if value > 1}
-		<div class="absolute right-[15%] top-[15%] h-1/6 w-1/6 rounded-full bg-gray-500" />
-		<div class="absolute bottom-[15%] left-[15%] h-1/6 w-1/6 rounded-full bg-gray-500" />
-	{/if}
-	{#if value > 3}
-		<div class="absolute left-[15%] top-[15%] h-1/6 w-1/6 rounded-full bg-gray-500" />
-		<div class="absolute bottom-[15%] right-[15%] h-1/6 w-1/6 rounded-full bg-gray-500" />
-	{/if}
-	{#if value === 6}
-		<div
-			class="absolute left-1/2 top-[15%] h-1/6 w-1/6 -translate-x-1/2 rounded-full bg-gray-500"
-		/>
-		<div
-			class="absolute bottom-[15%] left-1/2 h-1/6 w-1/6 -translate-x-1/2 rounded-full bg-gray-500"
-		/>
-	{/if}
+	<svg
+		width="auto"
+		height="auto"
+		viewBox="0 0 64 64"
+		xmlns="http://www.w3.org/2000/svg"
+		fill="currentColor"
+	>
+		{#if value % 2 === 1}
+			<circle cx="32" cy="32" r="5" />
+		{/if}
+
+		{#if value > 1}
+			<circle cx="48" cy="16" r="5" />
+			<circle cx="16" cy="48" r="5" />
+		{/if}
+
+		{#if value > 3}
+			<circle cx="16" cy="16" r="5" />
+			<circle cx="48" cy="48" r="5" />
+		{/if}
+
+		{#if value === 6}
+			<circle cx="32" cy="16" r="5" />
+			<circle cx="32" cy="48" r="5" />
+		{/if}
+	</svg>
 
 	{#if selected}
 		<div class="absolute inset-0 border border-primary rounded-[15%]" />
