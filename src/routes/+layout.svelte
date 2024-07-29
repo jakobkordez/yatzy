@@ -4,7 +4,8 @@
 	import { gameState } from '$lib/game-state';
 	import '../app.css';
 
-	gameState.subscribe((gs) => {
+	$: {
+		const gs = $gameState;
 		const path = $page.url.pathname;
 
 		if (gs && !path.match(/^\/game\b/)) {
@@ -12,7 +13,7 @@
 		} else if (gs === null && !path.match(/^\/new-game\b/)) {
 			goto('/new-game');
 		}
-	});
+	}
 </script>
 
 <svelte:head>
