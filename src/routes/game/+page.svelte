@@ -2,6 +2,9 @@
 	import QuitButton from './quit-button.svelte';
 	import ScoreCard from './score-card.svelte';
 	import Inputs from './inputs.svelte';
+	import { setInputContext } from './input-state.svelte';
+
+	setInputContext();
 </script>
 
 <div class="flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-center">

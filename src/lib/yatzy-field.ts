@@ -293,7 +293,7 @@ export class YatzyFieldYatzy extends YatzyBasicField {
 }
 
 function getMults(dice: number[], minCount: number): number[] {
-	const counts = new Array<number>(6).fill(0);
+	const counts = new Array(6).fill(0);
 	dice.forEach((d) => ++counts[d - 1]);
 	return counts.map((c, i) => (c >= minCount ? i + 1 : 0)).filter((d) => d > 0);
 

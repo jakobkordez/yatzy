@@ -1,4 +1,4 @@
-import themes from 'daisyui/src/theming/themes'
+import themes from 'daisyui/src/theming/themes';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -8,12 +8,14 @@ export default {
 	},
 	plugins: [require('daisyui')],
 	daisyui: {
-		themes: [{
-			light: {
-				...themes['cupcake'],
-				"--rounded-btn": "0.5rem"
+		themes: [
+			{
+				light: {
+					...themes['cupcake'],
+					'--rounded-btn': '0.5rem'
+				}
 			}
-		}],
+		],
 		logs: false
 	}
 };

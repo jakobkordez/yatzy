@@ -1,13 +1,17 @@
 <script lang="ts">
-	export let value: number;
-	export let onClick: (() => void) | undefined;
-	export let disabled: boolean = false;
-	export let selected: boolean = false;
+	interface Props {
+		value: number;
+		onClick: (() => void) | undefined;
+		disabled?: boolean;
+		selected?: boolean;
+	}
+
+	let { value, onClick, disabled = false, selected = false }: Props = $props();
 </script>
 
 <button
 	class="relative m-auto aspect-square h-full w-full max-w-[60px] rounded-[15%] border bg-gray-50"
-	on:click={onClick}
+	onclick={onClick}
 	{disabled}
 >
 	<svg
@@ -38,6 +42,6 @@
 	</svg>
 
 	{#if selected}
-		<div class="absolute inset-0 rounded-[15%] border border-primary" />
+		<div class="absolute inset-0 rounded-[15%] border border-primary"></div>
 	{/if}
 </button>

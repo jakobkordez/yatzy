@@ -1,19 +1,24 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { gameState } from '$lib/game-state';
+	import { page } from '$app/state';
+	import { setGameContext } from '$lib/game-state.svelte';
+	import type { Snippet } from 'svelte';
 	import '../app.css';
 
-	$: {
-		const gs = $gameState;
-		const path = $page.url.pathname;
+	let { children }: { children?: Snippet } = $props();
+
+	const gameState = setGameContext();
+
+	$effect(() => {
+		const path = page.url.pathname;
+		const gs = gameState.gameInProgress;
 
 		if (gs && !path.match(/^\/game\b/)) {
 			goto('/game');
-		} else if (gs === null && !path.match(/^\/new-game\b/)) {
+		} else if (gs === false && !path.match(/^\/new-game\b/)) {
 			goto('/new-game');
 		}
-	}
+	});
 </script>
 
 <svelte:head>
@@ -27,7 +32,7 @@
 
 <div class="flex min-h-screen flex-col bg-base-200">
 	<div class="flex-1 p-6">
-		<slot />
+		{@render children?.()}
 	</div>
 
 	<footer class="bg-base-300 px-3 py-1.5">

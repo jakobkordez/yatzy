@@ -1,10 +1,16 @@
 <script lang="ts">
-	import { createGame } from '$lib/game-state';
+	import { getGameContext } from '$lib/game-state.svelte';
 	import { faAdd, faClose } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
 
-	export let players: string[] = ['Jakob', 'Ana'];
-	export let addPlayerValue: string = '';
+	const gameState = getGameContext();
+
+	interface Props {
+		players?: string[];
+		addPlayerValue?: string;
+	}
+
+	let { players = $bindable(['Jakob']), addPlayerValue = $bindable('') }: Props = $props();
 
 	function addPlayer(): void {
 		if (!addPlayerValue) return;
@@ -23,11 +29,11 @@
 				class="input input-bordered w-full flex-1"
 				type="text"
 				bind:value={addPlayerValue}
-				on:keydown={(e) => {
+				onkeydown={(e) => {
 					if (e.key == 'Enter') addPlayer();
 				}}
 			/>
-			<button class="btn" on:click={addPlayer}>
+			<button class="btn" onclick={addPlayer}>
 				<Fa icon={faAdd} />
 			</button>
 		</div>
@@ -41,7 +47,7 @@
 					<!-- <span>#</span> -->
 					<span class="flex-1">{player}</span>
 					<button
-						on:click={() => {
+						onclick={() => {
 							const nPlayers = [...players];
 							nPlayers.splice(i, 1);
 							players = nPlayers;
@@ -57,8 +63,8 @@
 
 	{#if players.length > 0}
 		<div class="flex flex-row justify-end gap-2">
-			<button class="btn" on:click={() => (players = [])}>Clear</button>
-			<button class="btn btn-primary" on:click={() => createGame(players)}>Start</button>
+			<button class="btn" onclick={() => (players = [])}>Clear</button>
+			<button class="btn btn-primary" onclick={() => gameState.createGame(players)}>Start</button>
 		</div>
 	{/if}
 </div>

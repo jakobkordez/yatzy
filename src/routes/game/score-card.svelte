@@ -1,27 +1,33 @@
 <script lang="ts">
-	import { gameState, setFieldAndSave } from '$lib/game-state';
+	import { getGameContext } from '$lib/game-state.svelte';
 	import { YatzyBasicField } from '$lib/yatzy-field';
-	import { inputStore, updateInputs } from './input-store';
+	import { getInputContext } from './input-state.svelte';
 
-	$: ({ players, fields, fieldNames, scores } = $gameState!);
-	$: ({ dice, erase, player } = $inputStore);
+	const gameState = getGameContext();
+	const inputState = getInputContext();
+
+	let players = $derived(gameState.players!);
+	let fields = $derived(gameState.fields!);
+	let fieldNames = $derived(gameState.fieldNames!);
+	let scores = $derived(gameState.scores!);
+
+	let dice = $derived(inputState.dice);
+	let erase = $derived(inputState.erase);
+	let player = $derived(inputState.player);
 
 	function setField(fieldI: number, score: number | null) {
-		setFieldAndSave(player, fieldI, score);
-		if (score !== null)
-			updateInputs({
-				player: (player + 1) % players.length,
-				dice: new Array(5).fill(null),
-				selectedDice: 0,
-				erase: false
-			});
-		else
-			updateInputs({
-				erase: false
-			});
+		gameState.setField(player, fieldI, score);
+		if (score !== null) {
+			inputState.player = (player + 1) % players.length;
+			inputState.dice = new Array(5).fill(null);
+			inputState.selectedDice = 0;
+			inputState.erase = false;
+		} else {
+			inputState.erase = false;
+		}
 	}
 
-	$: nonNullDice = dice.filter((v) => v !== null) as number[];
+	let nonNullDice = $derived(dice.filter((v) => v !== null));
 </script>
 
 <table class="table card w-auto select-none overflow-clip bg-white text-center md:mx-auto">
@@ -32,7 +38,7 @@
 				<th class="h-1 w-20 border-l border-base-200 p-0 text-sm text-neutral">
 					<button
 						class={`h-full w-full px-4 py-2 ${player === i ? 'bg-primary/40' : 'hover:bg-primary/70'}`}
-						on:click={() => updateInputs({ player: i })}
+						onclick={() => (inputState.player = i)}
 					>
 						{p}
 					</button>
@@ -57,7 +63,7 @@
 						{:else if erase}
 							<button
 								class="h-full w-full bg-pink-50 py-2 font-medium text-pink-500 hover:bg-pink-100"
-								on:click={() => setField(fieldI, null)}
+								onclick={() => setField(fieldI, null)}
 							>
 								{fieldVal ?? ''}
 							</button>
@@ -67,7 +73,7 @@
 								class={`h-full w-full py-2 font-medium text-sky-500 hover:bg-sky-200 ${
 									score ? 'bg-sky-50' : ''
 								}`}
-								on:click={() => setField(fieldI, score)}
+								onclick={() => setField(fieldI, score)}
 							>
 								{score || '_'}
 							</button>
