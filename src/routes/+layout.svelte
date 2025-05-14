@@ -4,6 +4,7 @@
 	import { setGameContext } from '$lib/game-state.svelte';
 	import type { Snippet } from 'svelte';
 	import '../app.css';
+	import Umami from '$lib/umami.svelte';
 
 	let { children }: { children?: Snippet } = $props();
 
@@ -46,4 +47,6 @@
 			</div>
 		</div>
 	</footer>
+
+	<Umami />
 </div>
