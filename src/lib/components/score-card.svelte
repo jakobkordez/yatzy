@@ -18,10 +18,10 @@
 	let player = $derived(inputState?.player);
 
 	function setField(fieldI: number, score: number | null) {
-		if (!inputState || !player) return;
-		gameState.setField(player, fieldI, score);
+		if (!inputState) return;
+		gameState.setField(player!, fieldI, score);
 		if (score !== null) {
-			inputState.player = (player + 1) % players.length;
+			inputState.player = (player! + 1) % players.length;
 			inputState.dice = new Array(5).fill(null);
 			inputState.selectedDice = 0;
 			inputState.erase = false;

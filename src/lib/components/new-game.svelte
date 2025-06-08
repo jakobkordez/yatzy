@@ -19,29 +19,25 @@
 	<h1 class="text-3xl font-medium">New game</h1>
 
 	{#if players.length > 0}
-		<div class="flex flex-col gap-1">
+		<div class="flex flex-col gap-2">
 			<div class="text-center">Players</div>
-			<div class="flex flex-col gap-2">
-				{#each players as player, i}
-					<div class="input flex flex-row items-center gap-2 pl-6 pr-3">
-						<span class="flex-1">{player}</span>
-						<button
-							onclick={() => {
-								const nPlayers = [...players];
-								nPlayers.splice(i, 1);
-								players = nPlayers;
-							}}
-							class="btn btn-circle btn-ghost btn-sm"
-						>
-							<Fa icon={faClose} />
-						</button>
-					</div>
-				{/each}
-			</div>
+			{#each players as player, i}
+				<div class="input flex flex-row items-center gap-2 pl-6 pr-3">
+					<span class="flex-1">{player}</span>
+					<button
+						onclick={() => {
+							players = [...players.slice(0, i), ...players.slice(i + 1)];
+						}}
+						class="btn btn-circle btn-ghost btn-sm"
+					>
+						<Fa icon={faClose} />
+					</button>
+				</div>
+			{/each}
 		</div>
 	{/if}
 
-	<div class="flex flex-col gap-1">
+	<div class="flex flex-col gap-2">
 		<div class="text-center">Add player</div>
 		<div class="flex gap-2">
 			<input
