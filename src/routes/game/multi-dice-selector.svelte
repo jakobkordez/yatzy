@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Dice from './dice.svelte';
+	import Dice from '$lib/components/dice.svelte';
 	import { getInputContext } from './input-state.svelte';
 
 	const inputState = getInputContext();

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import QuitButton from './quit-button.svelte';
-	import ScoreCard from '../../lib/components/score-card.svelte';
+	import ScoreCard from '$lib/components/score-card.svelte';
 	import Inputs from './inputs.svelte';
 	import { setInputContext } from './input-state.svelte';
 	import { getGameContext } from '$lib/game-state.svelte';
