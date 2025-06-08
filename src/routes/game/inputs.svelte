@@ -11,7 +11,7 @@
 	let erase = $derived(inputState.erase);
 	let player = $derived(inputState.player);
 
-	let players = $derived(gameState.players!);
+	let players = $derived(gameState.game!.players!);
 </script>
 
 <div class="card mx-auto flex w-full flex-1 flex-col gap-6 bg-white p-6 md:flex-col">
