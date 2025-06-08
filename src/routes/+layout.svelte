@@ -4,7 +4,7 @@
 	import { setGameContext } from '$lib/game-state.svelte';
 	import type { Snippet } from 'svelte';
 	import '../app.css';
-	import Umami from '$lib/umami.svelte';
+	import Umami from '$lib/components/umami.svelte';
 
 	let { children }: { children?: Snippet } = $props();
 
@@ -16,8 +16,6 @@
 
 		if (gs && !path.match(/^\/game\b/)) {
 			goto('/game');
-		} else if (gs === false && !path.match(/^\/new-game\b/)) {
-			goto('/new-game');
 		}
 	});
 </script>

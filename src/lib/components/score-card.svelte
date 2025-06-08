@@ -1,21 +1,24 @@
 <script lang="ts">
 	import { getGameContext } from '$lib/game-state.svelte';
 	import { YatzyBasicField } from '$lib/yatzy-field';
-	import { getInputContext } from './input-state.svelte';
+	import type { YatzyGame } from '$lib/yatzy-game';
+	import type { InputState } from '../../routes/game/input-state.svelte';
 
 	const gameState = getGameContext();
-	const inputState = getInputContext();
 
-	let players = $derived(gameState.players!);
-	let fields = $derived(gameState.fields!);
-	let fieldNames = $derived(gameState.fieldNames!);
-	let scores = $derived(gameState.scores!);
+	const { game, inputState }: { game: YatzyGame; inputState?: InputState } = $props();
 
-	let dice = $derived(inputState.dice);
-	let erase = $derived(inputState.erase);
-	let player = $derived(inputState.player);
+	let players = $derived(game.players!);
+	let fields = $derived(game.fields!);
+	let fieldNames = $derived(game.fieldNames!);
+	let scores = $derived(game.scores!);
+
+	let dice = $derived(inputState?.dice);
+	let erase = $derived(inputState?.erase);
+	let player = $derived(inputState?.player);
 
 	function setField(fieldI: number, score: number | null) {
+		if (!inputState || !player) return;
 		gameState.setField(player, fieldI, score);
 		if (score !== null) {
 			inputState.player = (player + 1) % players.length;
@@ -27,7 +30,7 @@
 		}
 	}
 
-	let nonNullDice = $derived(dice.filter((v) => v !== null));
+	let nonNullDice = $derived(dice?.filter((v) => v !== null));
 </script>
 
 <table class="table card w-auto select-none overflow-clip bg-white text-center md:mx-auto">
@@ -38,7 +41,9 @@
 				<th class="h-1 w-20 border-l border-base-200 p-0 text-sm text-neutral">
 					<button
 						class={`h-full w-full px-4 py-2 ${player === i ? 'bg-primary/40' : 'hover:bg-primary/70'}`}
-						onclick={() => (inputState.player = i)}
+						onclick={() => {
+							if (inputState) inputState.player = i;
+						}}
 					>
 						{p}
 					</button>
@@ -68,7 +73,7 @@
 								{fieldVal ?? ''}
 							</button>
 						{:else}
-							{@const score = field.getScore(nonNullDice)}
+							{@const score = field.getScore(nonNullDice!)}
 							<button
 								class={`h-full w-full py-2 font-medium text-sky-500 hover:bg-sky-200 ${
 									score ? 'bg-sky-50' : ''

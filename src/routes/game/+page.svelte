@@ -1,10 +1,17 @@
 <script lang="ts">
 	import QuitButton from './quit-button.svelte';
-	import ScoreCard from './score-card.svelte';
+	import ScoreCard from '../../lib/components/score-card.svelte';
 	import Inputs from './inputs.svelte';
 	import { setInputContext } from './input-state.svelte';
+	import { getGameContext } from '$lib/game-state.svelte';
+	import { goto } from '$app/navigation';
 
-	setInputContext();
+	const inputState = setInputContext();
+	const gameState = getGameContext();
+
+	$effect(() => {
+		if (!gameState.gameInProgress) goto('/');
+	});
 </script>
 
 <div class="flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-center">
@@ -15,6 +22,8 @@
 	</div>
 
 	<div class="overflow-x-auto">
-		<ScoreCard />
+		{#if gameState.gameInProgress}
+			<ScoreCard game={gameState.game!} {inputState} />
+		{/if}
 	</div>
 </div>
